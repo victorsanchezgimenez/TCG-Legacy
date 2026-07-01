@@ -3,75 +3,1323 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TCG Legacy</title>
+    <meta name="description" content="TCG Legacy, tienda TCG y juegos de mesa en Pallejà. Pokemon, One Piece, Naruto, Lorcana, Topps, Dragon Shield y Ultra Pro.">
+    <title>TCG Legacy | Tienda TCG en Pallejà</title>
     <style>
       :root {
+        --legacy-black: #080806;
+        --legacy-ink: #11100d;
+        --legacy-panel: #181510;
+        --legacy-panel-2: #221d14;
+        --legacy-gold: #d6b05b;
+        --legacy-gold-deep: #9b7330;
+        --legacy-cream: #f5e8c4;
+        --legacy-muted: #c5b996;
+        --legacy-line: rgba(214, 176, 91, 0.22);
+        --legacy-wine: #4f1d19;
+        --legacy-ruby: #8a332b;
+        --legacy-steel: #73746c;
+        --radius: 18px;
+        --radius-small: 12px;
+        --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
         color-scheme: dark;
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: #0d1117;
-        color: #f6f0df;
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
-        min-height: 100vh;
         margin: 0;
+        background:
+          linear-gradient(90deg, rgba(214, 176, 91, 0.04) 1px, transparent 1px),
+          linear-gradient(rgba(214, 176, 91, 0.035) 1px, transparent 1px),
+          var(--legacy-black);
+        background-size: 44px 44px;
+        color: var(--legacy-cream);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 18% 8%, rgba(214, 176, 91, 0.2), transparent 24rem),
+          radial-gradient(circle at 86% 18%, rgba(138, 51, 43, 0.22), transparent 22rem),
+          linear-gradient(180deg, rgba(8, 8, 6, 0.1), #080806 78%);
+        z-index: -1;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .shell {
+        width: min(100% - 32px, 1180px);
+        margin: 0 auto;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid var(--legacy-line);
+        background: rgba(8, 8, 6, 0.82);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        min-height: 74px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+
+      .brand-mark {
+        width: 92px;
+        height: auto;
+        filter: drop-shadow(0 0 16px rgba(214, 176, 91, 0.22));
+      }
+
+      .brand-copy {
+        display: none;
+      }
+
+      .menu-toggle {
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--legacy-line);
+        border-radius: 50%;
+        background: rgba(214, 176, 91, 0.08);
+        color: var(--legacy-cream);
         display: grid;
         place-items: center;
+      }
+
+      .menu-toggle span,
+      .menu-toggle span::before,
+      .menu-toggle span::after {
+        display: block;
+        width: 18px;
+        height: 2px;
+        border-radius: 999px;
+        background: currentColor;
+        content: "";
+      }
+
+      .menu-toggle span::before {
+        transform: translateY(-6px);
+      }
+
+      .menu-toggle span::after {
+        transform: translateY(4px);
+      }
+
+      .nav-links,
+      .nav-actions {
+        display: none;
+      }
+
+      .mobile-panel {
+        display: none;
+        border-top: 1px solid var(--legacy-line);
+        padding: 14px 0 18px;
+      }
+
+      .mobile-panel.is-open {
+        display: block;
+      }
+
+      .mobile-panel a {
+        display: block;
+        padding: 13px 0;
+        color: var(--legacy-muted);
+        font-weight: 800;
+      }
+
+      .mobile-actions {
+        display: flex;
+        gap: 10px;
+        padding-top: 12px;
+      }
+
+      .icon-button {
+        position: relative;
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--legacy-line);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.035);
+        color: var(--legacy-gold);
+        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      }
+
+      .icon-button:hover {
+        transform: translateY(-2px);
+        border-color: rgba(214, 176, 91, 0.62);
+        background: rgba(214, 176, 91, 0.1);
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        min-width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: var(--legacy-ruby);
+        color: white;
+        font-size: 0.72rem;
+        font-weight: 900;
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        min-height: calc(100svh - 74px);
+        display: grid;
+        align-items: end;
+        padding: 44px 0 28px;
+      }
+
+      .hero-backdrop {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+      }
+
+      .hero-backdrop img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.48;
+      }
+
+      .hero-backdrop::after {
+        content: "";
+        position: absolute;
+        inset: 0;
         background:
-          radial-gradient(circle at 25% 20%, rgba(197, 160, 83, 0.22), transparent 26rem),
-          linear-gradient(135deg, #101820 0%, #17110d 54%, #0d1117 100%);
+          linear-gradient(180deg, rgba(8, 8, 6, 0.4), rgba(8, 8, 6, 0.9) 70%, #080806),
+          linear-gradient(90deg, rgba(8, 8, 6, 0.9), rgba(8, 8, 6, 0.34) 50%, rgba(8, 8, 6, 0.88));
       }
 
-      main {
-        width: min(92vw, 720px);
-        padding: 48px;
-        border: 1px solid rgba(246, 240, 223, 0.16);
-        border-radius: 8px;
-        background: rgba(13, 17, 23, 0.72);
-        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      .hero-grid {
+        display: grid;
+        gap: 34px;
       }
 
-      h1 {
-        margin: 0 0 16px;
-        font-size: clamp(2.4rem, 7vw, 5.8rem);
-        line-height: 0.9;
-        letter-spacing: 0;
-      }
-
-      p {
-        max-width: 42rem;
-        margin: 0;
-        color: #d8cdae;
-        font-size: 1.1rem;
-        line-height: 1.65;
-      }
-
-      .tag {
-        display: inline-block;
-        margin-bottom: 18px;
-        color: #e2b45f;
+      .eyebrow {
+        width: fit-content;
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        border: 1px solid var(--legacy-line);
+        border-radius: 999px;
+        padding: 8px 13px;
+        background: rgba(17, 16, 13, 0.72);
+        color: var(--legacy-gold);
         font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.18em;
+        font-weight: 900;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
       }
 
-      @media (max-width: 560px) {
-        main {
-          padding: 32px 24px;
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--legacy-ruby);
+        box-shadow: 0 0 20px rgba(138, 51, 43, 0.9);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      .hero h1 {
+        max-width: 920px;
+        margin-top: 18px;
+        font-size: 3.25rem;
+        line-height: 0.88;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .hero h1 span {
+        color: var(--legacy-gold);
+      }
+
+      .hero-text {
+        max-width: 680px;
+        margin-top: 14px;
+        color: var(--legacy-muted);
+        font-size: 1rem;
+        line-height: 1.65;
+      }
+
+      .cta-row {
+        display: grid;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .btn {
+        min-height: 50px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border: 1px solid transparent;
+        padding: 0 20px;
+        font-weight: 900;
+        transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--legacy-gold), #f1d386);
+        color: #12100b;
+        box-shadow: 0 18px 38px rgba(214, 176, 91, 0.23);
+      }
+
+      .btn-secondary {
+        border-color: var(--legacy-line);
+        background: rgba(17, 16, 13, 0.74);
+        color: var(--legacy-cream);
+      }
+
+      .trust-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin-top: 14px;
+      }
+
+      .trust-row span {
+        border: 1px solid rgba(245, 232, 196, 0.12);
+        border-radius: 999px;
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--legacy-muted);
+        font-size: 0.84rem;
+        font-weight: 800;
+      }
+
+      .card-stage {
+        min-height: 360px;
+        position: relative;
+        border: 1px solid var(--legacy-line);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(135deg, rgba(214, 176, 91, 0.14), transparent 32%),
+          rgba(17, 16, 13, 0.72);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .card-stage::before {
+        content: "";
+        position: absolute;
+        inset: 18px;
+        border: 1px solid rgba(214, 176, 91, 0.18);
+        border-radius: 22px;
+      }
+
+      .floating-card {
+        position: absolute;
+        width: clamp(116px, 28vw, 180px);
+        aspect-ratio: 0.68;
+        border-radius: 18px;
+        padding: 14px;
+        background: linear-gradient(160deg, #1c1710, #090807);
+        border: 2px solid rgba(214, 176, 91, 0.58);
+        box-shadow: 0 24px 40px rgba(0, 0, 0, 0.36);
+      }
+
+      .floating-card::before {
+        content: "";
+        display: block;
+        height: 68%;
+        border-radius: 12px;
+        background:
+          radial-gradient(circle at 50% 34%, rgba(245, 232, 196, 0.22), transparent 32%),
+          linear-gradient(135deg, var(--card-a), var(--card-b));
+      }
+
+      .floating-card strong {
+        display: block;
+        margin-top: 12px;
+        color: var(--legacy-cream);
+        font-size: 0.86rem;
+      }
+
+      .floating-card small {
+        display: block;
+        margin-top: 4px;
+        color: var(--legacy-gold);
+        font-weight: 900;
+      }
+
+      .card-one {
+        left: 8%;
+        top: 18%;
+        transform: rotate(-12deg);
+        --card-a: #d6b05b;
+        --card-b: #4f1d19;
+      }
+
+      .card-two {
+        right: 10%;
+        top: 8%;
+        transform: rotate(10deg);
+        --card-a: #7a3a33;
+        --card-b: #1b1712;
+      }
+
+      .card-three {
+        left: 36%;
+        bottom: 9%;
+        transform: rotate(3deg);
+        --card-a: #5e4a80;
+        --card-b: #d6b05b;
+      }
+
+      .stage-note {
+        position: absolute;
+        left: 22px;
+        right: 22px;
+        bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        color: var(--legacy-muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .marquee {
+        overflow: hidden;
+        border-block: 1px solid var(--legacy-line);
+        background: linear-gradient(90deg, rgba(79, 29, 25, 0.3), rgba(214, 176, 91, 0.08), rgba(8, 8, 6, 0.68));
+      }
+
+      .marquee-track {
+        display: flex;
+        width: max-content;
+        animation: marquee 28s linear infinite;
+      }
+
+      .marquee-group {
+        display: flex;
+      }
+
+      .marquee span {
+        padding: 17px 22px;
+        color: var(--legacy-gold);
+        font-size: 1rem;
+        font-weight: 1000;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .marquee span::after {
+        content: " /";
+        color: rgba(245, 232, 196, 0.35);
+        margin-left: 22px;
+      }
+
+      @keyframes marquee {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      section {
+        padding: 72px 0;
+      }
+
+      .section-head {
+        display: grid;
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+
+      .section-kicker {
+        color: var(--legacy-gold);
+        font-size: 0.78rem;
+        font-weight: 1000;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .section-head h2 {
+        max-width: 760px;
+        font-size: 2.2rem;
+        line-height: 0.95;
+        letter-spacing: 0;
+      }
+
+      .section-head p {
+        max-width: 660px;
+        color: var(--legacy-muted);
+        line-height: 1.7;
+      }
+
+      .category-mosaic {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(240px, 78vw);
+        gap: 14px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scroll-snap-type: x mandatory;
+      }
+
+      .category-card {
+        min-height: 320px;
+        position: relative;
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid rgba(214, 176, 91, 0.2);
+        background: var(--legacy-panel);
+        scroll-snap-align: start;
+        isolation: isolate;
+        transition: transform 190ms ease, border-color 190ms ease;
+      }
+
+      .category-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(214, 176, 91, 0.58);
+      }
+
+      .category-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        transition: transform 400ms ease;
+      }
+
+      .category-card:hover img {
+        transform: scale(1.05);
+      }
+
+      .category-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(180deg, rgba(8, 8, 6, 0.1), rgba(8, 8, 6, 0.9));
+      }
+
+      .category-card div {
+        height: 100%;
+        min-height: inherit;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        padding: 22px;
+      }
+
+      .category-card h3 {
+        font-size: 1.8rem;
+        line-height: 1;
+      }
+
+      .category-card span {
+        margin-top: 11px;
+        color: var(--legacy-gold);
+        font-size: 0.86rem;
+        font-weight: 1000;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .product-card {
+        border: 1px solid rgba(214, 176, 91, 0.18);
+        border-radius: var(--radius-small);
+        overflow: hidden;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+        transition: transform 190ms ease, border-color 190ms ease, box-shadow 190ms ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(214, 176, 91, 0.55);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      .product-media {
+        aspect-ratio: 1;
+        background: var(--legacy-panel);
+      }
+
+      .product-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .product-body {
+        padding: 13px;
+      }
+
+      .franchise-badge {
+        width: fit-content;
+        display: inline-flex;
+        border-radius: 999px;
+        padding: 6px 9px;
+        background: var(--badge-bg);
+        color: var(--badge-fg);
+        font-size: 0.68rem;
+        font-weight: 1000;
+        text-transform: uppercase;
+      }
+
+      .product-card h3 {
+        margin-top: 11px;
+        min-height: 42px;
+        color: var(--legacy-cream);
+        font-size: 0.98rem;
+        line-height: 1.25;
+      }
+
+      .price-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .price {
+        color: var(--legacy-gold);
+        font-size: 1.05rem;
+        font-weight: 1000;
+      }
+
+      .buy-button {
+        border: 1px solid var(--legacy-line);
+        border-radius: 999px;
+        padding: 8px 10px;
+        background: rgba(214, 176, 91, 0.1);
+        color: var(--legacy-cream);
+        font-size: 0.78rem;
+        font-weight: 1000;
+      }
+
+      .center-action {
+        display: flex;
+        justify-content: center;
+        margin-top: 28px;
+      }
+
+      .events {
+        background:
+          linear-gradient(180deg, rgba(79, 29, 25, 0.14), rgba(8, 8, 6, 0)),
+          rgba(17, 16, 13, 0.48);
+        border-block: 1px solid rgba(214, 176, 91, 0.12);
+      }
+
+      .events-grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .event-card {
+        display: grid;
+        grid-template-columns: 82px 1fr;
+        gap: 14px;
+        border: 1px solid rgba(214, 176, 91, 0.18);
+        border-radius: var(--radius-small);
+        padding: 14px;
+        background: rgba(8, 8, 6, 0.54);
+        transition: transform 180ms ease, border-color 180ms ease;
+      }
+
+      .event-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(214, 176, 91, 0.52);
+      }
+
+      .event-date {
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(160deg, var(--legacy-gold), #f2d68a);
+        color: #12100b;
+        text-align: center;
+        font-weight: 1000;
+      }
+
+      .event-date strong {
+        display: block;
+        font-size: 2rem;
+        line-height: 1;
+      }
+
+      .event-date span {
+        display: block;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .event-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .event-meta span {
+        border-radius: 999px;
+        padding: 6px 9px;
+        background: rgba(255, 255, 255, 0.055);
+        color: var(--legacy-muted);
+        font-size: 0.72rem;
+        font-weight: 900;
+      }
+
+      .event-card h3 {
+        font-size: 1.08rem;
+        line-height: 1.2;
+      }
+
+      .event-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 14px;
+        color: var(--legacy-muted);
+        font-size: 0.86rem;
+        font-weight: 800;
+      }
+
+      .event-price {
+        color: var(--legacy-gold);
+      }
+
+      .shop-info {
+        display: grid;
+        gap: 18px;
+      }
+
+      .hours-card,
+      .map-card {
+        border: 1px solid rgba(214, 176, 91, 0.18);
+        border-radius: var(--radius);
+        background: rgba(17, 16, 13, 0.72);
+        overflow: hidden;
+      }
+
+      .hours-card {
+        padding: 24px;
+      }
+
+      .info-title {
+        margin-top: 12px;
+        font-size: 2.2rem;
+        line-height: 0.96;
+      }
+
+      .hours-list {
+        display: grid;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .hours-list div {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        border-bottom: 1px solid rgba(245, 232, 196, 0.08);
+        padding-bottom: 12px;
+        color: var(--legacy-muted);
+      }
+
+      .hours-list strong {
+        color: var(--legacy-cream);
+      }
+
+      .map-card {
+        min-height: 310px;
+        position: relative;
+        display: grid;
+        align-content: end;
+        padding: 24px;
+        background:
+          linear-gradient(135deg, rgba(214, 176, 91, 0.18), transparent 38%),
+          linear-gradient(45deg, rgba(245, 232, 196, 0.08) 25%, transparent 25%, transparent 75%, rgba(245, 232, 196, 0.08) 75%),
+          var(--legacy-panel);
+        background-size: auto, 46px 46px, auto;
+      }
+
+      .pin {
+        position: absolute;
+        top: 34%;
+        left: 52%;
+        width: 54px;
+        height: 54px;
+        border-radius: 50% 50% 50% 0;
+        background: var(--legacy-gold);
+        transform: rotate(-45deg);
+        box-shadow: 0 0 0 12px rgba(214, 176, 91, 0.12);
+      }
+
+      .pin::after {
+        content: "";
+        position: absolute;
+        inset: 17px;
+        border-radius: 50%;
+        background: var(--legacy-wine);
+      }
+
+      .map-card p {
+        position: relative;
+        max-width: 390px;
+        color: var(--legacy-muted);
+        line-height: 1.6;
+      }
+
+      .footer {
+        border-top: 1px solid var(--legacy-line);
+        background: #060604;
+        padding: 40px 0 22px;
+      }
+
+      .footer-grid {
+        display: grid;
+        gap: 28px;
+      }
+
+      .footer-logo {
+        width: 132px;
+      }
+
+      .footer p,
+      .footer a,
+      .legal-row {
+        color: var(--legacy-muted);
+      }
+
+      .footer h3 {
+        margin-bottom: 12px;
+        color: var(--legacy-gold);
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .footer-list {
+        display: grid;
+        gap: 10px;
+        font-size: 0.92rem;
+      }
+
+      .socials {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .legal-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 34px;
+        border-top: 1px solid rgba(214, 176, 91, 0.13);
+        padding-top: 20px;
+        font-size: 0.86rem;
+      }
+
+      @media (min-width: 640px) {
+        .hero h1 {
+          font-size: 4.1rem;
+        }
+
+        .hero-text {
+          font-size: 1.08rem;
+        }
+
+        .marquee span {
+          font-size: 1.18rem;
+        }
+
+        .section-head h2 {
+          font-size: 3rem;
+        }
+
+        .info-title {
+          font-size: 3.1rem;
+        }
+
+        .cta-row {
+          grid-template-columns: repeat(2, max-content);
+        }
+
+        .brand-copy {
+          display: block;
+          color: var(--legacy-muted);
+          font-size: 0.74rem;
+          font-weight: 900;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+        }
+
+        .products-grid {
+          gap: 16px;
+        }
+      }
+
+      @media (min-width: 820px) {
+        .menu-toggle,
+        .mobile-panel {
+          display: none;
+        }
+
+        .nav-links,
+        .nav-actions {
+          display: flex;
+          align-items: center;
+        }
+
+        .nav-links {
+          gap: 6px;
+          border: 1px solid rgba(214, 176, 91, 0.14);
+          border-radius: 999px;
+          padding: 6px;
+          background: rgba(255, 255, 255, 0.035);
+        }
+
+        .nav-links a {
+          border-radius: 999px;
+          padding: 10px 14px;
+          color: var(--legacy-muted);
+          font-size: 0.9rem;
+          font-weight: 900;
+          transition: background 180ms ease, color 180ms ease;
+        }
+
+        .nav-links a:hover {
+          background: rgba(214, 176, 91, 0.1);
+          color: var(--legacy-cream);
+        }
+
+        .nav-actions {
+          gap: 10px;
+        }
+
+        .hero {
+          align-items: center;
+          padding: 48px 0;
+        }
+
+        .hero-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .card-stage {
+          min-height: 420px;
+        }
+
+        .category-mosaic {
+          grid-auto-flow: initial;
+          grid-auto-columns: initial;
+          grid-template-columns: 1.25fr 0.85fr 0.9fr;
+          grid-template-rows: repeat(2, 270px);
+          overflow: visible;
+        }
+
+        .category-card {
+          min-height: auto;
+        }
+
+        .category-card:first-child {
+          grid-row: span 2;
+        }
+
+        .category-card:nth-child(4) {
+          grid-column: span 2;
+        }
+
+        .products-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .events-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .shop-info {
+          grid-template-columns: 0.8fr 1.2fr;
+          align-items: stretch;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1.4fr 0.7fr 0.7fr 1fr;
+        }
+      }
+
+      @media (min-width: 1060px) {
+        .hero-grid {
+          grid-template-columns: 0.9fr 0.72fr;
+          align-items: end;
+        }
+
+        .hero h1 {
+          font-size: 5.2rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition: none !important;
+          animation: none !important;
         }
       }
     </style>
   </head>
   <body>
-    <main>
-      <span class="tag">Demo online</span>
-      <h1>TCG Legacy</h1>
-      <p>Proyecto inicial desplegado para validacion publica. Listo para convertirse en la demo jugable cuando toque meterle cartas, reglas y chispa.</p>
+    <header class="site-header">
+      <div class="shell nav">
+        <a class="brand" href="#inicio" aria-label="TCG Legacy inicio">
+          <img class="brand-mark" src="assets/tcg-legacy-logo-web.png" alt="TCG Legacy">
+          <span class="brand-copy">Palleja Hobby Store</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Navegacion principal">
+          <a href="#inicio">Inicio</a>
+          <a href="#tienda">Tienda</a>
+          <a href="#eventos">Eventos</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a class="icon-button" href="#tienda" aria-label="Carrito">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6h15l-2 8H8L6 3H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5" fill="currentColor"/><circle cx="18" cy="20" r="1.5" fill="currentColor"/></svg>
+            <span class="cart-count">2</span>
+          </a>
+          <a class="icon-button" href="https://wa.me/34602451879" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.7 14.9L2.1 22l5.2-1.2A10 10 0 1 0 12 2Zm0 18.1c-1.4 0-2.8-.4-4-1.1l-.3-.2-3 .7.8-2.9-.2-.3A8.1 8.1 0 1 1 12 20.1Zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8.9-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.1-.2 0-.3.1-.5l.4-.4c.1-.2.2-.3.2-.4s0-.3-.1-.4c0-.1-.6-1.5-.8-2-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1 0 1.3.9 2.5 1 2.7.1.2 1.8 2.9 4.4 4 .6.3 1.1.4 1.5.5.6.2 1.1.1 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1 0-.2-.2-.2-.4-.3Z"/></svg>
+          </a>
+        </div>
+
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+          <span></span>
+        </button>
+      </div>
+      <div class="shell mobile-panel" id="mobilePanel">
+        <a href="#inicio">Inicio</a>
+        <a href="#tienda">Tienda</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#contacto">Contacto</a>
+        <div class="mobile-actions">
+          <a class="icon-button" href="#tienda" aria-label="Carrito"><span class="cart-count">2</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6h15l-2 8H8L6 3H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5" fill="currentColor"/><circle cx="18" cy="20" r="1.5" fill="currentColor"/></svg></a>
+          <a class="icon-button" href="https://wa.me/34602451879" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.7 14.9L2.1 22l5.2-1.2A10 10 0 1 0 12 2Zm0 18.1c-1.4 0-2.8-.4-4-1.1l-.3-.2-3 .7.8-2.9-.2-.3A8.1 8.1 0 1 1 12 20.1Zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8.9-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.1-.2 0-.3.1-.5l.4-.4c.1-.2.2-.3.2-.4s0-.3-.1-.4c0-.1-.6-1.5-.8-2-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1 0 1.3.9 2.5 1 2.7.1.2 1.8 2.9 4.4 4 .6.3 1.1.4 1.5.5.6.2 1.1.1 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1 0-.2-.2-.2-.4-.3Z"/></svg></a>
+        </div>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <section class="hero">
+        <div class="hero-backdrop" aria-hidden="true">
+          <img src="assets/hero-tcg-legacy.webp" alt="">
+        </div>
+        <div class="shell hero-grid">
+          <div>
+            <span class="eyebrow">Tienda TCG · Pallejà</span>
+            <h1>Abre el sobre. <span>Construye legado.</span></h1>
+            <p class="hero-text">Cartas, juegos de mesa y accesorios para coleccionistas que vienen a por algo mas que una compra: Pokemon, One Piece, Naruto, Lorcana, Topps, Dragon Shield y Ultra Pro, con eventos semanales en tienda.</p>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#tienda">Ver tienda</a>
+              <a class="btn btn-secondary" href="#eventos">Proximos eventos</a>
+            </div>
+            <div class="trust-row" aria-label="Servicios destacados">
+              <span>Reserva online</span>
+              <span>Recogida en tienda</span>
+              <span>Eventos semanales</span>
+            </div>
+          </div>
+
+          <div class="card-stage" aria-label="Cartas destacadas">
+            <article class="floating-card card-one">
+              <strong>Pokemon</strong>
+              <small>ETB y sobres</small>
+            </article>
+            <article class="floating-card card-two">
+              <strong>One Piece</strong>
+              <small>Displays</small>
+            </article>
+            <article class="floating-card card-three">
+              <strong>Lorcana</strong>
+              <small>Starter decks</small>
+            </article>
+            <div class="stage-note">
+              <span>Sellado</span>
+              <span>Accesorios</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="marquee" aria-label="Franquicias">
+        <div class="marquee-track">
+          <div class="marquee-group">
+            <span>Pokemon</span><span>One Piece</span><span>Naruto</span><span>Lorcana</span><span>Topps</span><span>Dragon Shield</span><span>Ultra Pro</span>
+          </div>
+          <div class="marquee-group" aria-hidden="true">
+            <span>Pokemon</span><span>One Piece</span><span>Naruto</span><span>Lorcana</span><span>Topps</span><span>Dragon Shield</span><span>Ultra Pro</span>
+          </div>
+        </div>
+      </div>
+
+      <section id="categorias">
+        <div class="shell">
+          <div class="section-head">
+            <span class="section-kicker">Franquicias</span>
+            <h2>Rutas rapidas para cada tipo de coleccionista.</h2>
+            <p>Un escaparate pensado para saltar directo a tu universo favorito, con una composicion tipo mesa de juego en vez de un grid clasico.</p>
+          </div>
+          <div class="category-mosaic">
+            <a class="category-card" href="#tienda"><img src="assets/cat-pokemon.png" alt=""><div><h3>Pokemon</h3><span>Entrar</span></div></a>
+            <a class="category-card" href="#tienda"><img src="assets/cat-one-piece.png" alt=""><div><h3>One Piece</h3><span>Entrar</span></div></a>
+            <a class="category-card" href="#tienda"><img src="assets/cat-naruto.png" alt=""><div><h3>Naruto</h3><span>Entrar</span></div></a>
+            <a class="category-card" href="#tienda"><img src="assets/cat-lorcana.png" alt=""><div><h3>Lorcana</h3><span>Entrar</span></div></a>
+            <a class="category-card" href="#tienda"><img src="assets/cat-topps.png" alt=""><div><h3>Topps</h3><span>Entrar</span></div></a>
+            <a class="category-card" href="#tienda"><img src="assets/cat-accessories.png" alt=""><div><h3>Accesorios</h3><span>Entrar</span></div></a>
+          </div>
+        </div>
+      </section>
+
+      <section id="tienda">
+        <div class="shell">
+          <div class="section-head">
+            <span class="section-kicker">Ultimas novedades</span>
+            <h2>Producto sellado, accesorios y caprichos de vitrina.</h2>
+            <p>Precios placeholder realistas para demo, preparados para conectarse despues a catalogo, stock y carrito real.</p>
+          </div>
+
+          <div class="products-grid">
+            <article class="product-card">
+              <div class="product-media"><img src="assets/prod-etb.png" alt="Pokemon Elite Trainer Box"></div>
+              <div class="product-body">
+                <span class="franchise-badge" style="--badge-bg: rgba(214, 176, 91, 0.16); --badge-fg: #f2d68a;">Pokemon</span>
+                <h3>Pokemon Elite Trainer Box</h3>
+                <div class="price-row"><span class="price">59,95 €</span><a class="buy-button" href="#contacto">Comprar</a></div>
+              </div>
+            </article>
+            <article class="product-card">
+              <div class="product-media"><img src="assets/prod-onepiece.png" alt="One Piece Booster Display"></div>
+              <div class="product-body">
+                <span class="franchise-badge" style="--badge-bg: rgba(138, 51, 43, 0.25); --badge-fg: #f0b0a7;">One Piece</span>
+                <h3>One Piece Booster Display</h3>
+                <div class="price-row"><span class="price">119,90 €</span><a class="buy-button" href="#contacto">Comprar</a></div>
+              </div>
+            </article>
+            <article class="product-card">
+              <div class="product-media"><img src="assets/prod-lorcana.png" alt="Lorcana Starter Deck"></div>
+              <div class="product-body">
+                <span class="franchise-badge" style="--badge-bg: rgba(96, 67, 130, 0.3); --badge-fg: #dac4ff;">Lorcana</span>
+                <h3>Lorcana Starter Deck</h3>
+                <div class="price-row"><span class="price">19,95 €</span><a class="buy-button" href="#contacto">Comprar</a></div>
+              </div>
+            </article>
+            <article class="product-card">
+              <div class="product-media"><img src="assets/prod-sleeves.png" alt="Dragon Shield Matte Sleeves"></div>
+              <div class="product-body">
+                <span class="franchise-badge" style="--badge-bg: rgba(115, 116, 108, 0.28); --badge-fg: #e5e1d2;">Dragon Shield</span>
+                <h3>Dragon Shield Matte Sleeves</h3>
+                <div class="price-row"><span class="price">11,95 €</span><a class="buy-button" href="#contacto">Comprar</a></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="center-action">
+            <a class="btn btn-secondary" href="#contacto">Ver toda la tienda</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="events" id="eventos">
+        <div class="shell">
+          <div class="section-head">
+            <span class="section-kicker">Proximos eventos</span>
+            <h2>Mesas listas, plazas contadas y sobres preparados.</h2>
+            <p>Una agenda clara para torneos, ligas y quedadas de comunidad, con plazas disponibles y precio visible desde la home.</p>
+          </div>
+
+          <div class="events-grid">
+            <article class="event-card">
+              <div class="event-date"><div><strong>04</strong><span>Jul</span></div></div>
+              <div>
+                <div class="event-meta"><span>Pokemon</span><span>12 plazas</span></div>
+                <h3>Liga Pokemon Legacy</h3>
+                <div class="event-bottom"><span>Viernes · 18:00</span><span class="event-price">Gratis</span></div>
+              </div>
+            </article>
+            <article class="event-card">
+              <div class="event-date"><div><strong>06</strong><span>Jul</span></div></div>
+              <div>
+                <div class="event-meta"><span>One Piece</span><span>8 plazas</span></div>
+                <h3>Torneo sealed de domingo</h3>
+                <div class="event-bottom"><span>Domingo · 11:00</span><span class="event-price">5 €</span></div>
+              </div>
+            </article>
+            <article class="event-card">
+              <div class="event-date"><div><strong>10</strong><span>Jul</span></div></div>
+              <div>
+                <div class="event-meta"><span>Lorcana</span><span>10 plazas</span></div>
+                <h3>Noche de liga Lorcana</h3>
+                <div class="event-bottom"><span>Jueves · 17:30</span><span class="event-price">Gratis</span></div>
+              </div>
+            </article>
+            <article class="event-card">
+              <div class="event-date"><div><strong>12</strong><span>Jul</span></div></div>
+              <div>
+                <div class="event-meta"><span>Naruto</span><span>6 plazas</span></div>
+                <h3>Demo y partidas de iniciacion</h3>
+                <div class="event-bottom"><span>Sabado · 19:00</span><span class="event-price">5 €</span></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="center-action">
+            <a class="btn btn-primary" href="#contacto">Ver calendario completo</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto">
+        <div class="shell shop-info">
+          <div class="hours-card">
+            <span class="section-kicker">Info de tienda</span>
+            <h2 class="info-title">Nos vemos en Pallejà.</h2>
+            <div class="hours-list">
+              <div><strong>Lunes a viernes</strong><span>10:00 - 20:00</span></div>
+              <div><strong>Sabado</strong><span>10:00 - 21:00</span></div>
+              <div><strong>Domingo</strong><span>10:00 - 15:00</span></div>
+            </div>
+          </div>
+          <a class="map-card" href="https://www.google.com/maps/search/?api=1&query=Avinguda%20de%20L%27Onze%20de%20Setembre%207%20Local%204%2008780%20Palleja%20Barcelona" target="_blank" rel="noopener" aria-label="Abrir direccion en Google Maps">
+            <span class="pin" aria-hidden="true"></span>
+            <p><strong style="color: var(--legacy-cream);">Avinguda de L'Onze de Setembre, 7, Local 4</strong><br>08780 Pallejà, Barcelona<br>Ver ruta en Google Maps</p>
+          </a>
+        </div>
+      </section>
     </main>
+
+    <footer class="footer">
+      <div class="shell">
+        <div class="footer-grid">
+          <div>
+            <img class="footer-logo" src="assets/tcg-legacy-logo-web.png" alt="TCG Legacy">
+            <p style="margin-top: 18px; max-width: 340px; line-height: 1.65;">Tienda TCG y juegos de mesa en Pallejà. Sellado, accesorios, comunidad y eventos semanales.</p>
+            <div class="socials">
+              <a class="icon-button" href="https://www.instagram.com/tcg.legacy/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>
+              <a class="icon-button" href="https://wa.me/34602451879" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.7 14.9L2.1 22l5.2-1.2A10 10 0 1 0 12 2Zm0 18.1c-1.4 0-2.8-.4-4-1.1l-.3-.2-3 .7.8-2.9-.2-.3A8.1 8.1 0 1 1 12 20.1Zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8.9-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.1-.2 0-.3.1-.5l.4-.4c.1-.2.2-.3.2-.4s0-.3-.1-.4c0-.1-.6-1.5-.8-2-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1 0 1.3.9 2.5 1 2.7.1.2 1.8 2.9 4.4 4 .6.3 1.1.4 1.5.5.6.2 1.1.1 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1 0-.2-.2-.2-.4-.3Z"/></svg></a>
+            </div>
+          </div>
+          <div>
+            <h3>Secciones</h3>
+            <div class="footer-list">
+              <a href="#inicio">Inicio</a>
+              <a href="#tienda">Tienda</a>
+              <a href="#eventos">Eventos</a>
+              <a href="#contacto">Contacto</a>
+            </div>
+          </div>
+          <div>
+            <h3>Legal</h3>
+            <div class="footer-list">
+              <a href="#">Aviso legal</a>
+              <a href="#">Privacidad</a>
+              <a href="#">Cookies</a>
+              <a href="#">Devoluciones</a>
+            </div>
+          </div>
+          <div>
+            <h3>Direccion y horario</h3>
+            <div class="footer-list">
+              <span>Avinguda de L'Onze de Setembre, 7, Local 4</span>
+              <span>08780 Pallejà, Barcelona</span>
+              <span>Lun-Vie 10-20h · Sab 10-21h · Dom 10-15h</span>
+            </div>
+          </div>
+        </div>
+        <div class="legal-row">
+          <span>Copyright 2026 TCG Legacy. Todos los derechos reservados.</span>
+          <span>Demo visual preparada para presentacion comercial.</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const toggle = document.querySelector(".menu-toggle");
+      const panel = document.querySelector("#mobilePanel");
+      toggle.addEventListener("click", () => {
+        const isOpen = panel.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+      });
+      panel.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          panel.classList.remove("is-open");
+          toggle.setAttribute("aria-expanded", "false");
+        });
+      });
+    </script>
   </body>
 </html>
