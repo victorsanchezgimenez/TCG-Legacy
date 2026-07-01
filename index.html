@@ -446,15 +446,18 @@
       .marquee-track {
         display: flex;
         width: max-content;
-        animation: marquee 28s linear infinite;
+        min-width: 400%;
+        animation: marquee 36s linear infinite;
+        will-change: transform;
       }
 
       .marquee-group {
         display: flex;
+        min-width: max-content;
       }
 
       .marquee span {
-        padding: 17px 22px;
+        padding: 17px 34px;
         color: var(--legacy-gold);
         font-size: 1rem;
         font-weight: 1000;
@@ -470,7 +473,7 @@
 
       @keyframes marquee {
         to {
-          transform: translateX(-50%);
+          transform: translateX(-25%);
         }
       }
 
@@ -583,6 +586,59 @@
         gap: 12px;
       }
 
+      .shop-panel {
+        border: 1px solid rgba(214, 176, 91, 0.18);
+        border-radius: var(--radius);
+        padding: 14px;
+        background: rgba(17, 16, 13, 0.58);
+      }
+
+      .shop-toolbar {
+        display: grid;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+
+      .shop-categories {
+        display: flex;
+        gap: 9px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .category-filter {
+        min-height: 40px;
+        border: 1px solid rgba(214, 176, 91, 0.2);
+        border-radius: 999px;
+        padding: 0 14px;
+        background: rgba(255, 255, 255, 0.035);
+        color: var(--legacy-muted);
+        font-weight: 1000;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+
+      .category-filter.is-active {
+        background: linear-gradient(135deg, rgba(214, 176, 91, 0.95), #f0d07c);
+        color: #12100b;
+        border-color: transparent;
+      }
+
+      .shop-search {
+        min-height: 44px;
+        width: 100%;
+        border: 1px solid rgba(214, 176, 91, 0.2);
+        border-radius: 999px;
+        background: rgba(8, 8, 6, 0.55);
+        color: var(--legacy-cream);
+        padding: 0 16px;
+        outline: none;
+      }
+
+      .shop-search:focus {
+        border-color: rgba(214, 176, 91, 0.58);
+      }
+
       .product-card {
         border: 1px solid rgba(214, 176, 91, 0.18);
         border-radius: var(--radius-small);
@@ -654,6 +710,21 @@
         color: var(--legacy-cream);
         font-size: 0.78rem;
         font-weight: 1000;
+        cursor: pointer;
+      }
+
+      .buy-button:hover {
+        background: rgba(214, 176, 91, 0.2);
+      }
+
+      .empty-state {
+        grid-column: 1 / -1;
+        display: none;
+        border: 1px dashed rgba(214, 176, 91, 0.26);
+        border-radius: var(--radius-small);
+        padding: 28px;
+        color: var(--legacy-muted);
+        text-align: center;
       }
 
       .center-action {
@@ -747,6 +818,248 @@
 
       .event-price {
         color: var(--legacy-gold);
+      }
+
+      .calendar-wrap {
+        margin-top: 34px;
+        border: 1px solid rgba(214, 176, 91, 0.18);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: rgba(8, 8, 6, 0.64);
+      }
+
+      .calendar-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px;
+        border-bottom: 1px solid rgba(214, 176, 91, 0.14);
+      }
+
+      .calendar-head h3 {
+        font-size: 1.35rem;
+      }
+
+      .calendar-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .calendar-nav {
+        min-width: 42px;
+        height: 38px;
+        border: 1px solid rgba(214, 176, 91, 0.2);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--legacy-gold);
+        font-weight: 1000;
+        cursor: pointer;
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+      }
+
+      .calendar-weekday,
+      .calendar-day {
+        min-width: 0;
+        border-right: 1px solid rgba(245, 232, 196, 0.08);
+        border-bottom: 1px solid rgba(245, 232, 196, 0.08);
+      }
+
+      .calendar-weekday {
+        padding: 10px 6px;
+        color: var(--legacy-gold);
+        font-size: 0.68rem;
+        font-weight: 1000;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .calendar-day {
+        min-height: 98px;
+        padding: 8px;
+        background: rgba(255, 255, 255, 0.018);
+      }
+
+      .calendar-day.is-muted {
+        opacity: 0.34;
+      }
+
+      .day-number {
+        display: block;
+        margin-bottom: 7px;
+        color: var(--legacy-cream);
+        font-size: 0.82rem;
+        font-weight: 1000;
+      }
+
+      .calendar-event {
+        display: block;
+        margin-top: 5px;
+        border-left: 3px solid var(--legacy-gold);
+        border-radius: 6px;
+        padding: 5px 6px;
+        background: rgba(214, 176, 91, 0.11);
+        color: var(--legacy-cream);
+        font-size: 0.68rem;
+        font-weight: 900;
+        line-height: 1.25;
+      }
+
+      .calendar-event small {
+        display: block;
+        color: var(--legacy-muted);
+        font-size: 0.64rem;
+      }
+
+      .cart-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 30;
+        background: rgba(0, 0, 0, 0.54);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 180ms ease;
+      }
+
+      .cart-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 31;
+        width: min(100%, 420px);
+        height: 100svh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        border-left: 1px solid var(--legacy-line);
+        background: #0b0a08;
+        box-shadow: -24px 0 60px rgba(0, 0, 0, 0.45);
+        transform: translateX(100%);
+        transition: transform 220ms ease;
+      }
+
+      body.cart-open {
+        overflow: hidden;
+      }
+
+      body.cart-open .cart-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      body.cart-open .cart-drawer {
+        transform: translateX(0);
+      }
+
+      .cart-header,
+      .cart-footer {
+        padding: 18px;
+        border-bottom: 1px solid rgba(214, 176, 91, 0.14);
+      }
+
+      .cart-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .cart-header h2 {
+        font-size: 1.35rem;
+      }
+
+      .cart-close {
+        width: 38px;
+        height: 38px;
+        border: 1px solid var(--legacy-line);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--legacy-cream);
+        cursor: pointer;
+      }
+
+      .cart-items {
+        display: grid;
+        align-content: start;
+        gap: 12px;
+        overflow: auto;
+        padding: 18px;
+      }
+
+      .cart-item {
+        display: grid;
+        grid-template-columns: 58px 1fr auto;
+        gap: 12px;
+        align-items: center;
+        border: 1px solid rgba(214, 176, 91, 0.16);
+        border-radius: 14px;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.035);
+      }
+
+      .cart-item img {
+        width: 58px;
+        height: 58px;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+
+      .cart-item strong {
+        display: block;
+        color: var(--legacy-cream);
+        font-size: 0.9rem;
+        line-height: 1.2;
+      }
+
+      .cart-item span {
+        color: var(--legacy-gold);
+        font-size: 0.84rem;
+        font-weight: 900;
+      }
+
+      .qty-controls {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+
+      .qty-controls button {
+        width: 28px;
+        height: 28px;
+        border: 1px solid rgba(214, 176, 91, 0.22);
+        border-radius: 50%;
+        background: rgba(214, 176, 91, 0.08);
+        color: var(--legacy-cream);
+        cursor: pointer;
+      }
+
+      .cart-empty {
+        color: var(--legacy-muted);
+        line-height: 1.6;
+      }
+
+      .cart-footer {
+        border-top: 1px solid rgba(214, 176, 91, 0.14);
+        border-bottom: 0;
+      }
+
+      .cart-total {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        color: var(--legacy-muted);
+        font-weight: 900;
+      }
+
+      .cart-total strong {
+        color: var(--legacy-gold);
+        font-size: 1.3rem;
       }
 
       .shop-info {
@@ -920,6 +1233,14 @@
         .products-grid {
           gap: 16px;
         }
+
+        .shop-panel {
+          padding: 18px;
+        }
+
+        .calendar-day {
+          min-height: 118px;
+        }
       }
 
       @media (min-width: 820px) {
@@ -997,6 +1318,11 @@
           grid-template-columns: repeat(4, minmax(0, 1fr));
         }
 
+        .shop-toolbar {
+          grid-template-columns: minmax(0, 1fr) 280px;
+          align-items: center;
+        }
+
         .events-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -1008,6 +1334,37 @@
 
         .footer-grid {
           grid-template-columns: 1.4fr 0.7fr 0.7fr 1fr;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .calendar-wrap {
+          margin-inline: -16px;
+          border-radius: 0;
+          border-inline: 0;
+        }
+
+        .calendar-head {
+          padding-inline: 16px;
+        }
+
+        .calendar-weekday {
+          font-size: 0.58rem;
+          padding: 9px 3px;
+        }
+
+        .calendar-day {
+          min-height: 86px;
+          padding: 6px 4px;
+        }
+
+        .calendar-event {
+          padding: 4px;
+          font-size: 0.58rem;
+        }
+
+        .calendar-event small {
+          display: none;
         }
       }
 
@@ -1049,10 +1406,10 @@
         </nav>
 
         <div class="nav-actions">
-          <a class="icon-button" href="#tienda" aria-label="Carrito">
+          <button class="icon-button cart-trigger" type="button" aria-label="Abrir carrito">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6h15l-2 8H8L6 3H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5" fill="currentColor"/><circle cx="18" cy="20" r="1.5" fill="currentColor"/></svg>
             <span class="cart-count">2</span>
-          </a>
+          </button>
           <a class="icon-button" href="https://wa.me/34602451879" target="_blank" rel="noopener" aria-label="WhatsApp">
             <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.7 14.9L2.1 22l5.2-1.2A10 10 0 1 0 12 2Zm0 18.1c-1.4 0-2.8-.4-4-1.1l-.3-.2-3 .7.8-2.9-.2-.3A8.1 8.1 0 1 1 12 20.1Zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8.9-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.1-.2 0-.3.1-.5l.4-.4c.1-.2.2-.3.2-.4s0-.3-.1-.4c0-.1-.6-1.5-.8-2-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1 0 1.3.9 2.5 1 2.7.1.2 1.8 2.9 4.4 4 .6.3 1.1.4 1.5.5.6.2 1.1.1 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1 0-.2-.2-.2-.4-.3Z"/></svg>
           </a>
@@ -1068,7 +1425,7 @@
         <a href="#eventos">Eventos</a>
         <a href="#contacto">Contacto</a>
         <div class="mobile-actions">
-          <a class="icon-button" href="#tienda" aria-label="Carrito"><span class="cart-count">2</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6h15l-2 8H8L6 3H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5" fill="currentColor"/><circle cx="18" cy="20" r="1.5" fill="currentColor"/></svg></a>
+          <button class="icon-button cart-trigger" type="button" aria-label="Abrir carrito"><span class="cart-count">2</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6h15l-2 8H8L6 3H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5" fill="currentColor"/><circle cx="18" cy="20" r="1.5" fill="currentColor"/></svg></button>
           <a class="icon-button" href="https://wa.me/34602451879" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.7 14.9L2.1 22l5.2-1.2A10 10 0 1 0 12 2Zm0 18.1c-1.4 0-2.8-.4-4-1.1l-.3-.2-3 .7.8-2.9-.2-.3A8.1 8.1 0 1 1 12 20.1Zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8.9-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.1-.2 0-.3.1-.5l.4-.4c.1-.2.2-.3.2-.4s0-.3-.1-.4c0-.1-.6-1.5-.8-2-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1 0 1.3.9 2.5 1 2.7.1.2 1.8 2.9 4.4 4 .6.3 1.1.4 1.5.5.6.2 1.1.1 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1 0-.2-.2-.2-.4-.3Z"/></svg></a>
         </div>
       </div>
@@ -1118,12 +1475,10 @@
 
       <div class="marquee" aria-label="Franquicias">
         <div class="marquee-track">
-          <div class="marquee-group">
-            <span>Pokemon</span><span>One Piece</span><span>Naruto</span><span>Lorcana</span><span>Topps</span><span>Dragon Shield</span><span>Ultra Pro</span>
-          </div>
-          <div class="marquee-group" aria-hidden="true">
-            <span>Pokemon</span><span>One Piece</span><span>Naruto</span><span>Lorcana</span><span>Topps</span><span>Dragon Shield</span><span>Ultra Pro</span>
-          </div>
+          <div class="marquee-group"><span>Pokemon</span><span>One Piece</span><span>Naruto</span><span>Lorcana</span><span>Topps</span><span>Dragon Shield</span><span>Ultra Pro</span></div>
+          <div class="marquee-group" aria-hidden="true"><span>Pokemon</span><span>One Piece</span><span>Naruto</span><span>Lorcana</span><span>Topps</span><span>Dragon Shield</span><span>Ultra Pro</span></div>
+          <div class="marquee-group" aria-hidden="true"><span>Pokemon</span><span>One Piece</span><span>Naruto</span><span>Lorcana</span><span>Topps</span><span>Dragon Shield</span><span>Ultra Pro</span></div>
+          <div class="marquee-group" aria-hidden="true"><span>Pokemon</span><span>One Piece</span><span>Naruto</span><span>Lorcana</span><span>Topps</span><span>Dragon Shield</span><span>Ultra Pro</span></div>
         </div>
       </div>
 
@@ -1135,12 +1490,12 @@
             <p>Un escaparate pensado para saltar directo a tu universo favorito, con una composicion tipo mesa de juego en vez de un grid clasico.</p>
           </div>
           <div class="category-mosaic">
-            <a class="category-card" href="#tienda"><img src="assets/cat-pokemon.png" alt=""><div><h3>Pokemon</h3><span>Entrar</span></div></a>
-            <a class="category-card" href="#tienda"><img src="assets/cat-one-piece.png" alt=""><div><h3>One Piece</h3><span>Entrar</span></div></a>
-            <a class="category-card" href="#tienda"><img src="assets/cat-naruto.png" alt=""><div><h3>Naruto</h3><span>Entrar</span></div></a>
-            <a class="category-card" href="#tienda"><img src="assets/cat-lorcana.png" alt=""><div><h3>Lorcana</h3><span>Entrar</span></div></a>
-            <a class="category-card" href="#tienda"><img src="assets/cat-topps.png" alt=""><div><h3>Topps</h3><span>Entrar</span></div></a>
-            <a class="category-card" href="#tienda"><img src="assets/cat-accessories.png" alt=""><div><h3>Accesorios</h3><span>Entrar</span></div></a>
+            <a class="category-card category-link" href="#tienda" data-category="pokemon"><img src="assets/cat-pokemon.png" alt=""><div><h3>Pokemon</h3><span>Entrar</span></div></a>
+            <a class="category-card category-link" href="#tienda" data-category="one-piece"><img src="assets/cat-one-piece.png" alt=""><div><h3>One Piece</h3><span>Entrar</span></div></a>
+            <a class="category-card category-link" href="#tienda" data-category="naruto"><img src="assets/cat-naruto.png" alt=""><div><h3>Naruto</h3><span>Entrar</span></div></a>
+            <a class="category-card category-link" href="#tienda" data-category="lorcana"><img src="assets/cat-lorcana.png" alt=""><div><h3>Lorcana</h3><span>Entrar</span></div></a>
+            <a class="category-card category-link" href="#tienda" data-category="topps"><img src="assets/cat-topps.png" alt=""><div><h3>Topps</h3><span>Entrar</span></div></a>
+            <a class="category-card category-link" href="#tienda" data-category="accesorios"><img src="assets/cat-accessories.png" alt=""><div><h3>Accesorios</h3><span>Entrar</span></div></a>
           </div>
         </div>
       </section>
@@ -1153,43 +1508,25 @@
             <p>Precios placeholder realistas para demo, preparados para conectarse despues a catalogo, stock y carrito real.</p>
           </div>
 
-          <div class="products-grid">
-            <article class="product-card">
-              <div class="product-media"><img src="assets/prod-etb.png" alt="Pokemon Elite Trainer Box"></div>
-              <div class="product-body">
-                <span class="franchise-badge" style="--badge-bg: rgba(214, 176, 91, 0.16); --badge-fg: #f2d68a;">Pokemon</span>
-                <h3>Pokemon Elite Trainer Box</h3>
-                <div class="price-row"><span class="price">59,95 €</span><a class="buy-button" href="#contacto">Comprar</a></div>
+          <div class="shop-panel">
+            <div class="shop-toolbar" aria-label="Filtros de tienda">
+              <div class="shop-categories">
+                <button class="category-filter is-active" type="button" data-category="all">Todo</button>
+                <button class="category-filter" type="button" data-category="pokemon">Pokemon</button>
+                <button class="category-filter" type="button" data-category="one-piece">One Piece</button>
+                <button class="category-filter" type="button" data-category="naruto">Naruto</button>
+                <button class="category-filter" type="button" data-category="lorcana">Lorcana</button>
+                <button class="category-filter" type="button" data-category="topps">Topps</button>
+                <button class="category-filter" type="button" data-category="accesorios">Accesorios</button>
               </div>
-            </article>
-            <article class="product-card">
-              <div class="product-media"><img src="assets/prod-onepiece.png" alt="One Piece Booster Display"></div>
-              <div class="product-body">
-                <span class="franchise-badge" style="--badge-bg: rgba(138, 51, 43, 0.25); --badge-fg: #f0b0a7;">One Piece</span>
-                <h3>One Piece Booster Display</h3>
-                <div class="price-row"><span class="price">119,90 €</span><a class="buy-button" href="#contacto">Comprar</a></div>
-              </div>
-            </article>
-            <article class="product-card">
-              <div class="product-media"><img src="assets/prod-lorcana.png" alt="Lorcana Starter Deck"></div>
-              <div class="product-body">
-                <span class="franchise-badge" style="--badge-bg: rgba(96, 67, 130, 0.3); --badge-fg: #dac4ff;">Lorcana</span>
-                <h3>Lorcana Starter Deck</h3>
-                <div class="price-row"><span class="price">19,95 €</span><a class="buy-button" href="#contacto">Comprar</a></div>
-              </div>
-            </article>
-            <article class="product-card">
-              <div class="product-media"><img src="assets/prod-sleeves.png" alt="Dragon Shield Matte Sleeves"></div>
-              <div class="product-body">
-                <span class="franchise-badge" style="--badge-bg: rgba(115, 116, 108, 0.28); --badge-fg: #e5e1d2;">Dragon Shield</span>
-                <h3>Dragon Shield Matte Sleeves</h3>
-                <div class="price-row"><span class="price">11,95 €</span><a class="buy-button" href="#contacto">Comprar</a></div>
-              </div>
-            </article>
+              <input class="shop-search" type="search" placeholder="Buscar producto" aria-label="Buscar en tienda">
+            </div>
+            <div class="products-grid" id="productGrid"></div>
+            <div class="empty-state" id="productEmpty">No hay productos para ese filtro en la demo.</div>
           </div>
 
           <div class="center-action">
-            <a class="btn btn-secondary" href="#contacto">Ver toda la tienda</a>
+            <button class="btn btn-secondary" type="button" id="showAllProducts">Ver toda la tienda</button>
           </div>
         </div>
       </section>
@@ -1237,8 +1574,24 @@
             </article>
           </div>
 
+          <div class="calendar-wrap" id="calendar">
+            <div class="calendar-head">
+              <div>
+                <span class="section-kicker">Calendario completo</span>
+                <h3 id="calendarTitle">Julio 2026</h3>
+              </div>
+              <div class="calendar-actions">
+                <button class="calendar-nav" type="button" id="prevMonth" aria-label="Mes anterior">‹</button>
+                <button class="calendar-nav" type="button" id="todayMonth">Hoy</button>
+                <button class="calendar-nav" type="button" id="nextMonth" aria-label="Mes siguiente">›</button>
+              </div>
+            </div>
+            <div class="calendar-grid" id="calendarWeekdays" aria-hidden="true"></div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+          </div>
+
           <div class="center-action">
-            <a class="btn btn-primary" href="#contacto">Ver calendario completo</a>
+            <a class="btn btn-primary" href="#calendar">Ver calendario completo</a>
           </div>
         </div>
       </section>
@@ -1307,19 +1660,269 @@
       </div>
     </footer>
 
+    <div class="cart-backdrop" data-cart-close></div>
+    <aside class="cart-drawer" aria-label="Carrito" aria-hidden="true">
+      <div class="cart-header">
+        <div>
+          <span class="section-kicker">Tu reserva</span>
+          <h2>Carrito de demo</h2>
+        </div>
+        <button class="cart-close" type="button" data-cart-close aria-label="Cerrar carrito">×</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Total estimado</span>
+          <strong id="cartTotal">0,00 €</strong>
+        </div>
+        <a class="btn btn-primary" href="https://wa.me/34602451879" target="_blank" rel="noopener">Reservar por WhatsApp</a>
+      </div>
+    </aside>
+
     <script>
       const toggle = document.querySelector(".menu-toggle");
       const panel = document.querySelector("#mobilePanel");
+      const productGrid = document.querySelector("#productGrid");
+      const productEmpty = document.querySelector("#productEmpty");
+      const shopSearch = document.querySelector(".shop-search");
+      const categoryButtons = [...document.querySelectorAll(".category-filter")];
+      const cartDrawer = document.querySelector(".cart-drawer");
+      const cartItems = document.querySelector("#cartItems");
+      const cartTotal = document.querySelector("#cartTotal");
+      const cartCounts = [...document.querySelectorAll(".cart-count")];
+      const calendarGrid = document.querySelector("#calendarGrid");
+      const calendarWeekdays = document.querySelector("#calendarWeekdays");
+      const calendarTitle = document.querySelector("#calendarTitle");
+
+      const products = [
+        { id: "pkm-etb", category: "pokemon", franchise: "Pokemon", name: "Pokemon Elite Trainer Box", price: 59.95, image: "assets/prod-etb.png", badgeBg: "rgba(214, 176, 91, 0.16)", badgeFg: "#f2d68a" },
+        { id: "pkm-bundle", category: "pokemon", franchise: "Pokemon", name: "Pokemon Booster Bundle", price: 29.95, image: "assets/prod-etb.png", badgeBg: "rgba(214, 176, 91, 0.16)", badgeFg: "#f2d68a" },
+        { id: "op-display", category: "one-piece", franchise: "One Piece", name: "One Piece Booster Display", price: 119.90, image: "assets/prod-onepiece.png", badgeBg: "rgba(138, 51, 43, 0.25)", badgeFg: "#f0b0a7" },
+        { id: "naruto-starter", category: "naruto", franchise: "Naruto", name: "Naruto Mythos Starter Deck", price: 18.95, image: "assets/prod-onepiece.png", badgeBg: "rgba(173, 90, 45, 0.25)", badgeFg: "#ffc09c" },
+        { id: "lorcana-starter", category: "lorcana", franchise: "Lorcana", name: "Lorcana Starter Deck", price: 19.95, image: "assets/prod-lorcana.png", badgeBg: "rgba(96, 67, 130, 0.3)", badgeFg: "#dac4ff" },
+        { id: "topps-box", category: "topps", franchise: "Topps", name: "Topps Chrome Hobby Box", price: 89.95, image: "assets/prod-lorcana.png", badgeBg: "rgba(68, 92, 126, 0.3)", badgeFg: "#c7dcff" },
+        { id: "ds-sleeves", category: "accesorios", franchise: "Dragon Shield", name: "Dragon Shield Matte Sleeves", price: 11.95, image: "assets/prod-sleeves.png", badgeBg: "rgba(115, 116, 108, 0.28)", badgeFg: "#e5e1d2" },
+        { id: "up-binder", category: "accesorios", franchise: "Ultra Pro", name: "Ultra Pro 9-Pocket Binder", price: 24.95, image: "assets/prod-sleeves.png", badgeBg: "rgba(115, 116, 108, 0.28)", badgeFg: "#e5e1d2" }
+      ];
+
+      const events = [
+        { date: "2026-07-04", time: "18:00", franchise: "Pokemon", name: "Liga Pokemon Legacy", seats: "12 plazas", price: "Gratis" },
+        { date: "2026-07-06", time: "11:00", franchise: "One Piece", name: "Torneo sealed de domingo", seats: "8 plazas", price: "5 €" },
+        { date: "2026-07-10", time: "17:30", franchise: "Lorcana", name: "Noche de liga Lorcana", seats: "10 plazas", price: "Gratis" },
+        { date: "2026-07-12", time: "19:00", franchise: "Naruto", name: "Demo y partidas de iniciacion", seats: "6 plazas", price: "5 €" },
+        { date: "2026-07-18", time: "11:30", franchise: "Topps", name: "Trade day deportivo", seats: "Libre", price: "Gratis" },
+        { date: "2026-07-24", time: "18:00", franchise: "Pokemon", name: "Draft y cambio de cartas", seats: "14 plazas", price: "5 €" },
+        { date: "2026-08-02", time: "11:00", franchise: "One Piece", name: "Store meetup", seats: "10 plazas", price: "Gratis" }
+      ];
+
+      let activeCategory = "all";
+      let cart = [
+        { id: "pkm-etb", qty: 1 },
+        { id: "ds-sleeves", qty: 1 }
+      ];
+      let shownMonth = new Date(2026, 6, 1);
+
+      const formatPrice = (value) => `${value.toFixed(2).replace(".", ",")} €`;
+
+      const closeMobileMenu = () => {
+        panel.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+      };
+
       toggle.addEventListener("click", () => {
         const isOpen = panel.classList.toggle("is-open");
         toggle.setAttribute("aria-expanded", String(isOpen));
       });
+
       panel.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeMobileMenu);
+      });
+
+      function setCategory(category) {
+        activeCategory = category;
+        categoryButtons.forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.category === category);
+        });
+        renderProducts();
+      }
+
+      function renderProducts() {
+        const query = shopSearch.value.trim().toLowerCase();
+        const filtered = products.filter((product) => {
+          const matchesCategory = activeCategory === "all" || product.category === activeCategory;
+          const haystack = `${product.name} ${product.franchise} ${product.category}`.toLowerCase();
+          return matchesCategory && haystack.includes(query);
+        });
+
+        productGrid.innerHTML = filtered.map((product) => `
+          <article class="product-card" data-product-id="${product.id}">
+            <div class="product-media"><img src="${product.image}" alt="${product.name}"></div>
+            <div class="product-body">
+              <span class="franchise-badge" style="--badge-bg: ${product.badgeBg}; --badge-fg: ${product.badgeFg};">${product.franchise}</span>
+              <h3>${product.name}</h3>
+              <div class="price-row">
+                <span class="price">${formatPrice(product.price)}</span>
+                <button class="buy-button" type="button" data-add="${product.id}">Comprar</button>
+              </div>
+            </div>
+          </article>
+        `).join("");
+
+        productEmpty.style.display = filtered.length ? "none" : "block";
+      }
+
+      categoryButtons.forEach((button) => {
+        button.addEventListener("click", () => setCategory(button.dataset.category));
+      });
+
+      document.querySelectorAll(".category-link").forEach((link) => {
         link.addEventListener("click", () => {
-          panel.classList.remove("is-open");
-          toggle.setAttribute("aria-expanded", "false");
+          setCategory(link.dataset.category);
         });
       });
+
+      document.querySelector("#showAllProducts").addEventListener("click", () => {
+        shopSearch.value = "";
+        setCategory("all");
+        document.querySelector("#tienda").scrollIntoView({ behavior: "smooth" });
+      });
+
+      shopSearch.addEventListener("input", renderProducts);
+
+      productGrid.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-add]");
+        if (!button) return;
+        addToCart(button.dataset.add);
+        openCart();
+      });
+
+      function addToCart(id) {
+        const line = cart.find((item) => item.id === id);
+        if (line) {
+          line.qty += 1;
+        } else {
+          cart.push({ id, qty: 1 });
+        }
+        renderCart();
+      }
+
+      function updateQty(id, delta) {
+        cart = cart.map((item) => item.id === id ? { ...item, qty: item.qty + delta } : item).filter((item) => item.qty > 0);
+        renderCart();
+      }
+
+      function renderCart() {
+        if (!cart.length) {
+          cartItems.innerHTML = `<p class="cart-empty">Todavia no hay productos. Filtra la tienda, añade algo y esta bandeja se actualiza al momento.</p>`;
+        } else {
+          cartItems.innerHTML = cart.map((item) => {
+            const product = products.find((entry) => entry.id === item.id);
+            return `
+              <div class="cart-item">
+                <img src="${product.image}" alt="">
+                <div>
+                  <strong>${product.name}</strong>
+                  <span>${formatPrice(product.price)}</span>
+                </div>
+                <div class="qty-controls" aria-label="Cantidad de ${product.name}">
+                  <button type="button" data-qty="${product.id}" data-delta="-1">−</button>
+                  <strong>${item.qty}</strong>
+                  <button type="button" data-qty="${product.id}" data-delta="1">+</button>
+                </div>
+              </div>
+            `;
+          }).join("");
+        }
+
+        const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+        const total = cart.reduce((sum, item) => {
+          const product = products.find((entry) => entry.id === item.id);
+          return sum + product.price * item.qty;
+        }, 0);
+        cartCounts.forEach((count) => { count.textContent = totalQty; });
+        cartTotal.textContent = formatPrice(total);
+      }
+
+      cartItems.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-qty]");
+        if (!button) return;
+        updateQty(button.dataset.qty, Number(button.dataset.delta));
+      });
+
+      function openCart() {
+        document.body.classList.add("cart-open");
+        cartDrawer.setAttribute("aria-hidden", "false");
+      }
+
+      function closeCart() {
+        document.body.classList.remove("cart-open");
+        cartDrawer.setAttribute("aria-hidden", "true");
+      }
+
+      document.querySelectorAll(".cart-trigger").forEach((button) => {
+        button.addEventListener("click", openCart);
+      });
+
+      document.querySelectorAll("[data-cart-close]").forEach((button) => {
+        button.addEventListener("click", closeCart);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeCart();
+      });
+
+      function renderCalendar() {
+        const weekdays = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
+        calendarWeekdays.innerHTML = weekdays.map((day) => `<div class="calendar-weekday">${day}</div>`).join("");
+
+        const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        const year = shownMonth.getFullYear();
+        const month = shownMonth.getMonth();
+        calendarTitle.textContent = `${monthNames[month]} ${year}`;
+
+        const firstDay = new Date(year, month, 1);
+        const offset = (firstDay.getDay() + 6) % 7;
+        const start = new Date(year, month, 1 - offset);
+        const cells = [];
+
+        for (let i = 0; i < 42; i += 1) {
+          const date = new Date(start);
+          date.setDate(start.getDate() + i);
+          const iso = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+          const dayEvents = events.filter((event) => event.date === iso);
+          cells.push(`
+            <div class="calendar-day ${date.getMonth() === month ? "" : "is-muted"}">
+              <span class="day-number">${date.getDate()}</span>
+              ${dayEvents.map((event) => `
+                <a class="calendar-event" href="#eventos">
+                  ${event.franchise}
+                  <small>${event.time} · ${event.price}</small>
+                </a>
+              `).join("")}
+            </div>
+          `);
+        }
+        calendarGrid.innerHTML = cells.join("");
+      }
+
+      document.querySelector("#prevMonth").addEventListener("click", () => {
+        shownMonth = new Date(shownMonth.getFullYear(), shownMonth.getMonth() - 1, 1);
+        renderCalendar();
+      });
+
+      document.querySelector("#nextMonth").addEventListener("click", () => {
+        shownMonth = new Date(shownMonth.getFullYear(), shownMonth.getMonth() + 1, 1);
+        renderCalendar();
+      });
+
+      document.querySelector("#todayMonth").addEventListener("click", () => {
+        shownMonth = new Date(2026, 6, 1);
+        renderCalendar();
+      });
+
+      renderProducts();
+      renderCart();
+      renderCalendar();
     </script>
   </body>
 </html>
