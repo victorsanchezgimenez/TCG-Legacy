@@ -481,6 +481,71 @@
         padding: 72px 0;
       }
 
+      .view-section,
+      .home-section {
+        display: none;
+      }
+
+      body.view-home .home-section,
+      body.view-shop #tienda,
+      body.view-calendar #eventos {
+        display: block;
+      }
+
+      body.view-home .hero.home-section {
+        display: grid;
+      }
+
+      .view-page {
+        min-height: calc(100svh - 74px);
+        padding-top: 54px;
+      }
+
+      .summary-grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .summary-panel {
+        border: 1px solid rgba(214, 176, 91, 0.18);
+        border-radius: var(--radius);
+        padding: 18px;
+        background: rgba(17, 16, 13, 0.58);
+      }
+
+      .summary-panel-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .summary-panel h3 {
+        font-size: 1.4rem;
+      }
+
+      .summary-link {
+        border: 1px solid var(--legacy-line);
+        border-radius: 999px;
+        padding: 9px 12px;
+        color: var(--legacy-gold);
+        font-size: 0.78rem;
+        font-weight: 1000;
+        white-space: nowrap;
+      }
+
+      .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .preview-events {
+        display: grid;
+        gap: 12px;
+      }
+
       .section-head {
         display: grid;
         gap: 14px;
@@ -1234,6 +1299,10 @@
           gap: 16px;
         }
 
+        .summary-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
         .shop-panel {
           padding: 18px;
         }
@@ -1272,9 +1341,14 @@
           transition: background 180ms ease, color 180ms ease;
         }
 
-        .nav-links a:hover {
+      .nav-links a:hover {
           background: rgba(214, 176, 91, 0.1);
           color: var(--legacy-cream);
+        }
+
+        .nav-links a.is-active {
+          background: rgba(214, 176, 91, 0.16);
+          color: var(--legacy-gold);
         }
 
         .nav-actions {
@@ -1324,6 +1398,10 @@
         }
 
         .events-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .preview-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
@@ -1390,19 +1468,19 @@
       }
     </style>
   </head>
-  <body>
+  <body class="view-home">
     <header class="site-header">
       <div class="shell nav">
-        <a class="brand" href="#inicio" aria-label="TCG Legacy inicio">
+        <a class="brand" href="#inicio" data-view-link="home" aria-label="TCG Legacy inicio">
           <img class="brand-mark" src="assets/tcg-legacy-logo-web.png" alt="TCG Legacy">
           <span class="brand-copy">Palleja Hobby Store</span>
         </a>
 
         <nav class="nav-links" aria-label="Navegacion principal">
-          <a href="#inicio">Inicio</a>
-          <a href="#tienda">Tienda</a>
-          <a href="#eventos">Eventos</a>
-          <a href="#contacto">Contacto</a>
+          <a href="#inicio" data-view-link="home">Inicio</a>
+          <a href="#tienda" data-view-link="shop">Tienda</a>
+          <a href="#eventos" data-view-link="calendar">Eventos</a>
+          <a href="#contacto" data-view-link="home">Contacto</a>
         </nav>
 
         <div class="nav-actions">
@@ -1420,10 +1498,10 @@
         </button>
       </div>
       <div class="shell mobile-panel" id="mobilePanel">
-        <a href="#inicio">Inicio</a>
-        <a href="#tienda">Tienda</a>
-        <a href="#eventos">Eventos</a>
-        <a href="#contacto">Contacto</a>
+        <a href="#inicio" data-view-link="home">Inicio</a>
+        <a href="#tienda" data-view-link="shop">Tienda</a>
+        <a href="#eventos" data-view-link="calendar">Eventos</a>
+        <a href="#contacto" data-view-link="home">Contacto</a>
         <div class="mobile-actions">
           <button class="icon-button cart-trigger" type="button" aria-label="Abrir carrito"><span class="cart-count">2</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6h15l-2 8H8L6 3H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5" fill="currentColor"/><circle cx="18" cy="20" r="1.5" fill="currentColor"/></svg></button>
           <a class="icon-button" href="https://wa.me/34602451879" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.7 14.9L2.1 22l5.2-1.2A10 10 0 1 0 12 2Zm0 18.1c-1.4 0-2.8-.4-4-1.1l-.3-.2-3 .7.8-2.9-.2-.3A8.1 8.1 0 1 1 12 20.1Zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8.9-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.1-.2 0-.3.1-.5l.4-.4c.1-.2.2-.3.2-.4s0-.3-.1-.4c0-.1-.6-1.5-.8-2-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1 0 1.3.9 2.5 1 2.7.1.2 1.8 2.9 4.4 4 .6.3 1.1.4 1.5.5.6.2 1.1.1 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1 0-.2-.2-.2-.4-.3Z"/></svg></a>
@@ -1432,7 +1510,7 @@
     </header>
 
     <main id="inicio">
-      <section class="hero">
+      <section class="hero home-section">
         <div class="hero-backdrop" aria-hidden="true">
           <img src="assets/hero-tcg-legacy.webp" alt="">
         </div>
@@ -1442,8 +1520,8 @@
             <h1>Abre el sobre. <span>Construye legado.</span></h1>
             <p class="hero-text">Cartas, juegos de mesa y accesorios para coleccionistas que vienen a por algo mas que una compra: Pokemon, One Piece, Naruto, Lorcana, Topps, Dragon Shield y Ultra Pro, con eventos semanales en tienda.</p>
             <div class="cta-row">
-              <a class="btn btn-primary" href="#tienda">Ver tienda</a>
-              <a class="btn btn-secondary" href="#eventos">Proximos eventos</a>
+              <a class="btn btn-primary" href="#tienda" data-view-link="shop">Ver tienda</a>
+              <a class="btn btn-secondary" href="#eventos" data-view-link="calendar">Proximos eventos</a>
             </div>
             <div class="trust-row" aria-label="Servicios destacados">
               <span>Reserva online</span>
@@ -1473,7 +1551,7 @@
         </div>
       </section>
 
-      <div class="marquee" aria-label="Franquicias">
+      <div class="marquee home-section" aria-label="Franquicias">
         <div class="marquee-track">
           <div class="marquee-group"><span>Pokemon</span><span>One Piece</span><span>Naruto</span><span>Lorcana</span><span>Topps</span><span>Dragon Shield</span><span>Ultra Pro</span></div>
           <div class="marquee-group" aria-hidden="true"><span>Pokemon</span><span>One Piece</span><span>Naruto</span><span>Lorcana</span><span>Topps</span><span>Dragon Shield</span><span>Ultra Pro</span></div>
@@ -1482,7 +1560,7 @@
         </div>
       </div>
 
-      <section id="categorias">
+      <section id="categorias" class="home-section">
         <div class="shell">
           <div class="section-head">
             <span class="section-kicker">Franquicias</span>
@@ -1500,7 +1578,39 @@
         </div>
       </section>
 
-      <section id="tienda">
+      <section class="home-section" id="resumen">
+        <div class="shell">
+          <div class="section-head">
+            <span class="section-kicker">Resumen</span>
+            <h2>Lo esencial antes de entrar al detalle.</h2>
+            <p>Una portada ligera para enseñar lo que vende la tienda y que el cliente pueda saltar a la experiencia completa cuando quiera.</p>
+          </div>
+          <div class="summary-grid">
+            <article class="summary-panel">
+              <div class="summary-panel-head">
+                <div>
+                  <span class="section-kicker">Tienda</span>
+                  <h3>Novedades destacadas</h3>
+                </div>
+                <a class="summary-link" href="#tienda" data-view-link="shop">Ver toda la tienda</a>
+              </div>
+              <div class="preview-grid" id="homeProductPreview"></div>
+            </article>
+            <article class="summary-panel">
+              <div class="summary-panel-head">
+                <div>
+                  <span class="section-kicker">Eventos</span>
+                  <h3>Próximas partidas</h3>
+                </div>
+                <a class="summary-link" href="#eventos" data-view-link="calendar">Ver calendario</a>
+              </div>
+              <div class="preview-events" id="homeEventPreview"></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="tienda" class="view-section view-page">
         <div class="shell">
           <div class="section-head">
             <span class="section-kicker">Ultimas novedades</span>
@@ -1531,7 +1641,7 @@
         </div>
       </section>
 
-      <section class="events" id="eventos">
+      <section class="events view-section view-page" id="eventos">
         <div class="shell">
           <div class="section-head">
             <span class="section-kicker">Proximos eventos</span>
@@ -1596,7 +1706,7 @@
         </div>
       </section>
 
-      <section id="contacto">
+      <section id="contacto" class="home-section">
         <div class="shell shop-info">
           <div class="hours-card">
             <span class="section-kicker">Info de tienda</span>
@@ -1629,10 +1739,10 @@
           <div>
             <h3>Secciones</h3>
             <div class="footer-list">
-              <a href="#inicio">Inicio</a>
-              <a href="#tienda">Tienda</a>
-              <a href="#eventos">Eventos</a>
-              <a href="#contacto">Contacto</a>
+              <a href="#inicio" data-view-link="home">Inicio</a>
+              <a href="#tienda" data-view-link="shop">Tienda</a>
+              <a href="#eventos" data-view-link="calendar">Eventos</a>
+              <a href="#contacto" data-view-link="home">Contacto</a>
             </div>
           </div>
           <div>
@@ -1684,6 +1794,8 @@
       const panel = document.querySelector("#mobilePanel");
       const productGrid = document.querySelector("#productGrid");
       const productEmpty = document.querySelector("#productEmpty");
+      const homeProductPreview = document.querySelector("#homeProductPreview");
+      const homeEventPreview = document.querySelector("#homeEventPreview");
       const shopSearch = document.querySelector(".shop-search");
       const categoryButtons = [...document.querySelectorAll(".category-filter")];
       const cartDrawer = document.querySelector(".cart-drawer");
@@ -1693,6 +1805,7 @@
       const calendarGrid = document.querySelector("#calendarGrid");
       const calendarWeekdays = document.querySelector("#calendarWeekdays");
       const calendarTitle = document.querySelector("#calendarTitle");
+      const viewLinks = [...document.querySelectorAll("[data-view-link]")];
 
       const products = [
         { id: "pkm-etb", category: "pokemon", franchise: "Pokemon", name: "Pokemon Elite Trainer Box", price: 59.95, image: "assets/prod-etb.png", badgeBg: "rgba(214, 176, 91, 0.16)", badgeFg: "#f2d68a" },
@@ -1724,6 +1837,33 @@
 
       const formatPrice = (value) => `${value.toFixed(2).replace(".", ",")} €`;
 
+      function viewFromHash(hash) {
+        if (hash === "#tienda") return "shop";
+        if (hash === "#eventos" || hash === "#calendar") return "calendar";
+        return "home";
+      }
+
+      function setActiveView(view, targetHash = "#inicio", push = true) {
+        document.body.classList.remove("view-home", "view-shop", "view-calendar");
+        document.body.classList.add(`view-${view}`);
+        viewLinks.forEach((link) => {
+          link.classList.toggle("is-active", link.dataset.viewLink === view);
+        });
+        closeMobileMenu();
+        closeCart();
+        if (push) {
+          history.pushState(null, "", targetHash);
+        }
+        requestAnimationFrame(() => {
+          const target = document.querySelector(targetHash);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          } else {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        });
+      }
+
       const closeMobileMenu = () => {
         panel.classList.remove("is-open");
         toggle.setAttribute("aria-expanded", "false");
@@ -1736,6 +1876,14 @@
 
       panel.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", closeMobileMenu);
+      });
+
+      viewLinks.forEach((link) => {
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          const hash = link.getAttribute("href") || "#inicio";
+          setActiveView(link.dataset.viewLink, hash);
+        });
       });
 
       function setCategory(category) {
@@ -1771,25 +1919,64 @@
         productEmpty.style.display = filtered.length ? "none" : "block";
       }
 
+      function renderHomePreview() {
+        homeProductPreview.innerHTML = products.slice(0, 4).map((product) => `
+          <article class="product-card">
+            <div class="product-media"><img src="${product.image}" alt="${product.name}"></div>
+            <div class="product-body">
+              <span class="franchise-badge" style="--badge-bg: ${product.badgeBg}; --badge-fg: ${product.badgeFg};">${product.franchise}</span>
+              <h3>${product.name}</h3>
+              <div class="price-row">
+                <span class="price">${formatPrice(product.price)}</span>
+                <button class="buy-button" type="button" data-add="${product.id}">Comprar</button>
+              </div>
+            </div>
+          </article>
+        `).join("");
+
+        homeEventPreview.innerHTML = events.slice(0, 4).map((event) => {
+          const date = new Date(`${event.date}T00:00:00`);
+          return `
+            <article class="event-card">
+              <div class="event-date"><div><strong>${String(date.getDate()).padStart(2, "0")}</strong><span>Jul</span></div></div>
+              <div>
+                <div class="event-meta"><span>${event.franchise}</span><span>${event.seats}</span></div>
+                <h3>${event.name}</h3>
+                <div class="event-bottom"><span>${event.time}</span><span class="event-price">${event.price}</span></div>
+              </div>
+            </article>
+          `;
+        }).join("");
+      }
+
       categoryButtons.forEach((button) => {
         button.addEventListener("click", () => setCategory(button.dataset.category));
       });
 
       document.querySelectorAll(".category-link").forEach((link) => {
-        link.addEventListener("click", () => {
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
           setCategory(link.dataset.category);
+          setActiveView("shop", "#tienda");
         });
       });
 
       document.querySelector("#showAllProducts").addEventListener("click", () => {
         shopSearch.value = "";
         setCategory("all");
-        document.querySelector("#tienda").scrollIntoView({ behavior: "smooth" });
+        setActiveView("shop", "#tienda");
       });
 
       shopSearch.addEventListener("input", renderProducts);
 
       productGrid.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-add]");
+        if (!button) return;
+        addToCart(button.dataset.add);
+        openCart();
+      });
+
+      homeProductPreview.addEventListener("click", (event) => {
         const button = event.target.closest("[data-add]");
         if (!button) return;
         addToCart(button.dataset.add);
@@ -1921,8 +2108,13 @@
       });
 
       renderProducts();
+      renderHomePreview();
       renderCart();
       renderCalendar();
+      setActiveView(viewFromHash(window.location.hash), window.location.hash || "#inicio", false);
+      window.addEventListener("popstate", () => {
+        setActiveView(viewFromHash(window.location.hash), window.location.hash || "#inicio", false);
+      });
     </script>
   </body>
 </html>
