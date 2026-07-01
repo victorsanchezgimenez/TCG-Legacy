@@ -507,10 +507,14 @@
       }
 
       .summary-panel {
+        position: relative;
+        display: flex;
+        flex-direction: column;
         border: 1px solid rgba(214, 176, 91, 0.18);
         border-radius: var(--radius);
         padding: 18px;
         background: rgba(17, 16, 13, 0.58);
+        overflow: hidden;
       }
 
       .summary-panel-head {
@@ -544,6 +548,64 @@
       .preview-events {
         display: grid;
         gap: 12px;
+      }
+
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 24px;
+        color: var(--legacy-muted);
+        font-size: 0.88rem;
+        font-weight: 800;
+      }
+
+      .breadcrumb a {
+        color: var(--legacy-muted);
+      }
+
+      .breadcrumb span {
+        color: var(--legacy-gold);
+      }
+
+      .glow-cta {
+        position: relative;
+        min-height: 58px;
+        margin-top: auto;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: linear-gradient(135deg, #d6b05b, #f4d98b 52%, #c99333);
+        color: #12100b;
+        font-weight: 1000;
+        box-shadow: 0 0 0 1px rgba(214, 176, 91, 0.34), 0 20px 46px rgba(214, 176, 91, 0.18);
+      }
+
+      .glow-cta::before {
+        content: "";
+        position: absolute;
+        inset: -80% -20%;
+        background:
+          radial-gradient(circle at 22% 50%, rgba(255, 255, 255, 0.6), transparent 9%),
+          linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.5), transparent 62%);
+        transform: translateX(-80%);
+        animation: goldWave 3.2s ease-in-out infinite;
+      }
+
+      .glow-cta span {
+        position: relative;
+        z-index: 1;
+      }
+
+      @keyframes goldWave {
+        0%, 30% {
+          transform: translateX(-90%);
+        }
+        70%, 100% {
+          transform: translateX(90%);
+        }
       }
 
       .section-head {
@@ -883,6 +945,31 @@
 
       .event-price {
         color: var(--legacy-gold);
+      }
+
+      .event-signup {
+        width: fit-content;
+        min-height: 38px;
+        margin-top: 12px;
+        border: 1px solid rgba(214, 176, 91, 0.35);
+        border-radius: 999px;
+        padding: 0 14px;
+        background: rgba(214, 176, 91, 0.12);
+        color: var(--legacy-gold);
+        font-size: 0.78rem;
+        font-weight: 1000;
+        cursor: pointer;
+        transition: transform 180ms ease, background 180ms ease;
+      }
+
+      .event-signup:hover {
+        transform: translateY(-2px);
+        background: rgba(214, 176, 91, 0.2);
+      }
+
+      .event-signup.is-done {
+        background: rgba(214, 176, 91, 0.9);
+        color: #12100b;
       }
 
       .calendar-wrap {
@@ -1592,9 +1679,9 @@
                   <span class="section-kicker">Tienda</span>
                   <h3>Novedades destacadas</h3>
                 </div>
-                <a class="summary-link" href="#tienda" data-view-link="shop">Ver toda la tienda</a>
               </div>
               <div class="preview-grid" id="homeProductPreview"></div>
+              <a class="glow-cta" href="#tienda" data-view-link="shop"><span>Ver toda la tienda</span></a>
             </article>
             <article class="summary-panel">
               <div class="summary-panel-head">
@@ -1602,9 +1689,9 @@
                   <span class="section-kicker">Eventos</span>
                   <h3>Próximas partidas</h3>
                 </div>
-                <a class="summary-link" href="#eventos" data-view-link="calendar">Ver calendario</a>
               </div>
               <div class="preview-events" id="homeEventPreview"></div>
+              <a class="glow-cta" href="#eventos" data-view-link="calendar"><span>Ver calendario completo</span></a>
             </article>
           </div>
         </div>
@@ -1612,6 +1699,7 @@
 
       <section id="tienda" class="view-section view-page">
         <div class="shell">
+          <div class="breadcrumb"><a href="#inicio" data-view-link="home">Inicio</a><span>/</span><span>Tienda</span></div>
           <div class="section-head">
             <span class="section-kicker">Ultimas novedades</span>
             <h2>Producto sellado, accesorios y caprichos de vitrina.</h2>
@@ -1635,14 +1723,12 @@
             <div class="empty-state" id="productEmpty">No hay productos para ese filtro en la demo.</div>
           </div>
 
-          <div class="center-action">
-            <button class="btn btn-secondary" type="button" id="showAllProducts">Ver toda la tienda</button>
-          </div>
         </div>
       </section>
 
       <section class="events view-section view-page" id="eventos">
         <div class="shell">
+          <div class="breadcrumb"><a href="#inicio" data-view-link="home">Inicio</a><span>/</span><span>Eventos</span></div>
           <div class="section-head">
             <span class="section-kicker">Proximos eventos</span>
             <h2>Mesas listas, plazas contadas y sobres preparados.</h2>
@@ -1655,6 +1741,7 @@
               <div>
                 <div class="event-meta"><span>Pokemon</span><span>12 plazas</span></div>
                 <h3>Liga Pokemon Legacy</h3>
+                <button class="event-signup" type="button">Apuntarme</button>
                 <div class="event-bottom"><span>Viernes · 18:00</span><span class="event-price">Gratis</span></div>
               </div>
             </article>
@@ -1663,6 +1750,7 @@
               <div>
                 <div class="event-meta"><span>One Piece</span><span>8 plazas</span></div>
                 <h3>Torneo sealed de domingo</h3>
+                <button class="event-signup" type="button">Apuntarme</button>
                 <div class="event-bottom"><span>Domingo · 11:00</span><span class="event-price">5 €</span></div>
               </div>
             </article>
@@ -1671,6 +1759,7 @@
               <div>
                 <div class="event-meta"><span>Lorcana</span><span>10 plazas</span></div>
                 <h3>Noche de liga Lorcana</h3>
+                <button class="event-signup" type="button">Apuntarme</button>
                 <div class="event-bottom"><span>Jueves · 17:30</span><span class="event-price">Gratis</span></div>
               </div>
             </article>
@@ -1679,6 +1768,7 @@
               <div>
                 <div class="event-meta"><span>Naruto</span><span>6 plazas</span></div>
                 <h3>Demo y partidas de iniciacion</h3>
+                <button class="event-signup" type="button">Apuntarme</button>
                 <div class="event-bottom"><span>Sabado · 19:00</span><span class="event-price">5 €</span></div>
               </div>
             </article>
@@ -1700,9 +1790,6 @@
             <div class="calendar-grid" id="calendarGrid"></div>
           </div>
 
-          <div class="center-action">
-            <a class="btn btn-primary" href="#calendar">Ver calendario completo</a>
-          </div>
         </div>
       </section>
 
@@ -1882,8 +1969,19 @@
         link.addEventListener("click", (event) => {
           event.preventDefault();
           const hash = link.getAttribute("href") || "#inicio";
+          if (link.dataset.viewLink === "shop") {
+            shopSearch.value = "";
+            setCategory("all");
+          }
           setActiveView(link.dataset.viewLink, hash);
         });
+      });
+
+      document.addEventListener("click", (event) => {
+        const signup = event.target.closest(".event-signup");
+        if (!signup) return;
+        signup.classList.add("is-done");
+        signup.textContent = "Apuntado";
       });
 
       function setCategory(category) {
@@ -1942,6 +2040,7 @@
               <div>
                 <div class="event-meta"><span>${event.franchise}</span><span>${event.seats}</span></div>
                 <h3>${event.name}</h3>
+                <button class="event-signup" type="button">Apuntarme</button>
                 <div class="event-bottom"><span>${event.time}</span><span class="event-price">${event.price}</span></div>
               </div>
             </article>
@@ -1961,11 +2060,14 @@
         });
       });
 
-      document.querySelector("#showAllProducts").addEventListener("click", () => {
-        shopSearch.value = "";
-        setCategory("all");
-        setActiveView("shop", "#tienda");
-      });
+      const showAllProducts = document.querySelector("#showAllProducts");
+      if (showAllProducts) {
+        showAllProducts.addEventListener("click", () => {
+          shopSearch.value = "";
+          setCategory("all");
+          setActiveView("shop", "#tienda");
+        });
+      }
 
       shopSearch.addEventListener("input", renderProducts);
 
