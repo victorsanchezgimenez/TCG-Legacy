@@ -510,9 +510,10 @@
         position: relative;
         display: flex;
         flex-direction: column;
+        gap: 16px;
         border: 1px solid rgba(214, 176, 91, 0.18);
         border-radius: var(--radius);
-        padding: 18px;
+        padding: 18px 18px 24px;
         background: rgba(17, 16, 13, 0.58);
         overflow: hidden;
       }
@@ -972,6 +973,109 @@
         color: #12100b;
       }
 
+      .featured-event {
+        display: grid;
+        gap: 0;
+        margin-bottom: 28px;
+        border: 1px solid rgba(214, 176, 91, 0.24);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background:
+          linear-gradient(135deg, rgba(214, 176, 91, 0.08), transparent 42%),
+          rgba(17, 16, 13, 0.78);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+      }
+
+      .featured-event-copy {
+        padding: 24px;
+      }
+
+      .featured-badge {
+        width: fit-content;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        padding: 8px 12px;
+        background: rgba(138, 51, 43, 0.28);
+        color: #f1a094;
+        font-size: 0.72rem;
+        font-weight: 1000;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .featured-event h3 {
+        margin-top: 18px;
+        max-width: 650px;
+        font-size: 1.9rem;
+        line-height: 0.98;
+      }
+
+      .featured-event p {
+        max-width: 560px;
+        margin-top: 16px;
+        color: var(--legacy-muted);
+        line-height: 1.65;
+      }
+
+      .featured-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        max-width: 560px;
+        margin-top: 22px;
+      }
+
+      .featured-stats span {
+        display: block;
+        color: rgba(245, 232, 196, 0.55);
+        font-size: 0.72rem;
+        font-weight: 1000;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .featured-stats strong {
+        display: block;
+        margin-top: 6px;
+        color: var(--legacy-cream);
+      }
+
+      .featured-event .event-signup {
+        margin-top: 24px;
+        min-height: 48px;
+        padding: 0 24px;
+        background: linear-gradient(135deg, var(--legacy-gold), #e7ba4c);
+        color: #12100b;
+      }
+
+      .featured-event-art {
+        min-height: 260px;
+        position: relative;
+        display: grid;
+        place-items: center;
+        background:
+          repeating-linear-gradient(45deg, rgba(214, 176, 91, 0.06) 0 16px, transparent 16px 34px),
+          linear-gradient(135deg, rgba(96, 67, 130, 0.22), rgba(79, 29, 25, 0.16));
+        border-top: 1px solid rgba(214, 176, 91, 0.14);
+      }
+
+      .featured-card-prop {
+        width: 142px;
+        aspect-ratio: 0.68;
+        border: 3px solid #6b55a1;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(160deg, #f2ddab, #d9bc72);
+        color: #6b55a1;
+        font-size: 0.76rem;
+        font-weight: 1000;
+        transform: rotate(-5deg);
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+      }
+
       .calendar-wrap {
         margin-top: 34px;
         border: 1px solid rgba(214, 176, 91, 0.18);
@@ -1390,6 +1494,10 @@
           grid-template-columns: 1fr 1fr;
         }
 
+        .featured-event h3 {
+          font-size: 2.45rem;
+        }
+
         .shop-panel {
           padding: 18px;
         }
@@ -1500,6 +1608,21 @@
         .footer-grid {
           grid-template-columns: 1.4fr 0.7fr 0.7fr 1fr;
         }
+
+        .summary-grid {
+          width: calc(100% - 34px);
+          margin-inline: auto;
+        }
+
+        .featured-event {
+          grid-template-columns: 1.05fr 0.95fr;
+        }
+
+        .featured-event-art {
+          min-height: 100%;
+          border-top: 0;
+          border-left: 1px solid rgba(214, 176, 91, 0.14);
+        }
       }
 
       @media (max-width: 520px) {
@@ -1530,6 +1653,10 @@
 
         .calendar-event small {
           display: none;
+        }
+
+        .featured-stats {
+          grid-template-columns: 1fr;
         }
       }
 
@@ -1734,6 +1861,23 @@
             <h2>Mesas listas, plazas contadas y sobres preparados.</h2>
             <p>Una agenda clara para torneos, ligas y quedadas de comunidad, con plazas disponibles y precio visible desde la home.</p>
           </div>
+
+          <article class="featured-event">
+            <div class="featured-event-copy">
+              <span class="featured-badge">★ Evento destacado</span>
+              <h3>Prerelease Lorcana - Las Tierras Inundadas</h3>
+              <p>Se de los primeros en jugar el nuevo set. Incluye sobres de prerelease, material sellado y cartas promo exclusivas. Plazas limitadas.</p>
+              <div class="featured-stats">
+                <div><span>Fecha</span><strong>Sab 12 Jul · 17:00</strong></div>
+                <div><span>Plazas</span><strong>Lista abierta</strong></div>
+                <div><span>Precio</span><strong>25 €</strong></div>
+              </div>
+              <button class="event-signup" type="button">Apuntarme</button>
+            </div>
+            <div class="featured-event-art" aria-hidden="true">
+              <div class="featured-card-prop">// Lorcana</div>
+            </div>
+          </article>
 
           <div class="events-grid">
             <article class="event-card">
